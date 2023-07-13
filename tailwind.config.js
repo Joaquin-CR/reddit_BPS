@@ -9,6 +9,8 @@ module.exports = {
     extend: {
       colors: {
         'bgColor-Navbar': '#363636',
+        'borderColor-Posts': '#0017ff',
+        'bgColor-Card': '#edf3f4',
       },
       backgroundImage: {
         'gradient-conic':
