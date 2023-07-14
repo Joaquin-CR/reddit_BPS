@@ -13,3 +13,9 @@ export type UserComments = {
   PostTime: stirng;
   likesCount: number;
 };
+
+export type SavedLikedPost = {
+  idPost: string;
+  saved: boolean;
+  liked: boolean;
+};
