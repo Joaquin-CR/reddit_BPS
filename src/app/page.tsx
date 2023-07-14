@@ -34,7 +34,6 @@ const Home: NextPageWithLayout = () => {
             ))}
           </div>
         </div>
-        {/* <button onClick={() => router.push('/detailPost')}>Prueba</button> */}
       </main>
     </>
   );

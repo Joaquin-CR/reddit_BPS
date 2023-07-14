@@ -1,0 +1,17 @@
+[
+  {
+    "idPost": "10",
+    "saved": true,
+    "liked": true
+  },
+  {
+    "idPost": "12",
+    "saved": false,
+    "liked": true
+  },
+  {
+    "idPost": "14",
+    "saved": true,
+    "liked": false
+  }
+]

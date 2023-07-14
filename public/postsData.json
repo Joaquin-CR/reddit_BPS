@@ -128,6 +128,12 @@
         "text": "Cuaquier cosa",
         "PostTime": "Checar formato de fecha",
         "likesCount": 10
+      },
+      {
+        "author": "Alguien",
+        "text": "Cuaquier cosa",
+        "PostTime": "Checar formato de fecha",
+        "likesCount": 10
       }
     ]
   },
@@ -138,6 +144,18 @@
     "imgUrl": "url de la imagen",
     "likesCount": 1222,
     "coments": [
+      {
+        "author": "Alguien",
+        "text": "Cuaquier cosa",
+        "PostTime": "Checar formato de fecha",
+        "likesCount": 10
+      },
+      {
+        "author": "Alguien",
+        "text": "Cuaquier cosa",
+        "PostTime": "Checar formato de fecha",
+        "likesCount": 10
+      },
       {
         "author": "Alguien",
         "text": "Cuaquier cosa",
