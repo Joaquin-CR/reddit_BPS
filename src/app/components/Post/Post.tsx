@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Avatar from '../../../../public/Images/avatar.jpg';
 import CommentsIcon from '../../../../public/Images/commentsIcon.svg';
 import Dots from '../../../../public/Images/dots.svg';
@@ -9,31 +9,31 @@ import LikedImg from '../../../../public/Images/likedBTN.svg';
 import SaveIcon from '../../../../public/Images/saveIcon.svg';
 import SavedIcon from '../../../../public/Images/savedIcon.svg';
 import ShareIcon from '../../../../public/Images/shareIcon.svg';
-import { SavedLikedPost } from '../../../../types';
 
 export interface IPost {
   post: any;
-  like: boolean;
-  save: boolean;
 }
-const Post: React.FC<IPost> = ({ post, like, save }) => {
-  const [liked, setLike] = useState<boolean>(like);
+const Post: React.FC<IPost> = ({ post }) => {
+  const [liked, setLike] = useState<boolean>(false);
   const [countLikes, setCount] = useState(post.likesAmount);
 
-  const [saved, setSaved] = useState(save);
+  const [saved, setSaved] = useState(false);
 
-  const [saveLikeList, setSaveLikeList] = useState<SavedLikedPost[]>([]);
+  const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    const savedLikeData = localStorage.getItem('JSONLikeSaveData');
-    if (savedLikeData) {
-      setSaveLikeList(JSON.parse(savedLikeData));
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(post.url);
+      setCopied(true);
+    } catch (error) {
+      console.error('Error copying to clipboard:', error);
+      setCopied(false);
     }
-    // } else {
-    //   localStorage.setItem('JSONLikeSaveData', JSON.stringify(saveLikeInfo));
-    //   setSaveLikeList(saveLikeInfo);
-    // }
-  }, []);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 1500);
+  };
 
   const CommentsAction = () => {
     console.log('Comments');
@@ -42,18 +42,15 @@ const Post: React.FC<IPost> = ({ post, like, save }) => {
   const SaveAction = () => {
     setSaved(!saved);
     console.log('Save', post.idPost);
-    // GUARDAR EL CAMBIO
   };
 
   const LikeAction = () => {
     setLike(!liked);
-    if (liked) {
+    if (!liked) {
       setCount(countLikes + 1);
     } else {
       setCount(countLikes - 1);
     }
-    // GUARDAR EL CAMBIO
-    
   };
 
   const content = (
@@ -74,17 +71,17 @@ const Post: React.FC<IPost> = ({ post, like, save }) => {
           <div className="items-center unselectable cursor-pointer">
             {liked ? (
               <Image
-                className="w-6"
-                src={LikeImg}
-                alt={''}
-                onClick={LikeAction}
-              />
-            ) : (
-              <Image
                 src={LikedImg}
                 alt={''}
                 onClick={LikeAction}
                 className="w-6"
+              />
+            ) : (
+              <Image
+                className="w-6"
+                src={LikeImg}
+                alt={''}
+                onClick={LikeAction}
               />
             )}
             <p className="text-xs text-center">{countLikes}</p>
@@ -96,8 +93,7 @@ const Post: React.FC<IPost> = ({ post, like, save }) => {
             {post.title}
           </p>
           <div className="mt-7 w-full flex justify-center md:px-20">
-            <img src={ post.thumbnail } alt="" />
-            {/* <Image src={testImg} alt="Body img" /> */}
+            <img src={post.thumbnail} alt="" />
           </div>
         </div>
         {/* FOOTER */}
@@ -112,22 +108,22 @@ const Post: React.FC<IPost> = ({ post, like, save }) => {
               />
               <p className="text-xs">{post.numComments} Comments</p>
             </div>
-            <div className="flex justify-center items-center mx-5 unselectable cursor-pointer">
+            <div className="flex justify-center items-center mx-5 unselectable cursor-pointer" onClick={handleCopy}>
               <Image className="w-5 mr-2" src={ShareIcon} alt="Share Icon" />
-              <p className="text-xs">Share</p>
+              <p className="text-xs">Share </p> {copied && <span className='ml-1'>✔</span>}
             </div>
             <div className="flex justify-center items-center cursor-pointer unselectable" onClick={SaveAction}>
               {saved ? (
                 <Image
                   className="w-5 mr-2"
-                  src={SaveIcon}
-                  alt="Save Icon"
+                  src={SavedIcon}
+                  alt="Saved Icon"
                 />
               ) : (
                 <Image
                   className="w-5 mr-2"
-                  src={SavedIcon}
-                  alt="Saved Icon"
+                  src={SaveIcon}
+                  alt="Save Icon"
                 />
               )}
               <p className="text-xs cursor-pointer">

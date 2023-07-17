@@ -28,7 +28,7 @@ export default async function getData() {
             const data = await response.json();
 
             let posts: PostClass[] = data.data.children.map((post: any) => deserialize(post, PostClass));
-            console.log('Publicaciones', posts);
+            // console.log('Publicaciones', posts);
             return posts;
         } else {
             console.error('Request failed with status code: ', response.status)
