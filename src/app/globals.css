@@ -6,3 +6,7 @@
   font-family: Readex;
   src: url('../../public/fonts/ReadexPro-Medium.ttf');
 }
+
+.unselectable {
+  user-select: none;
+}
